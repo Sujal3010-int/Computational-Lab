@@ -54,8 +54,22 @@ class Complex:
         return arg
 
 
+def read_matrix(filename):
+        with open(filename,'r') as f:
+            matrix=[]
+            for line in f:
+                row=[float(num) for num in line.strip().split()]
+                matrix.append(row)
+        return matrix
+
+
+
 
 
 
 
    
+Complex.display(f)
+m= Complex.mod(z)
+print(m)
+print (Complex.arg_deg(z))
