@@ -1,8 +1,22 @@
 import numpy as np
+
+class Rng():
+    def rand_numb_gen():
+        x= id(0)
+        x= id(x)
+        z= str(x)[5:10]
+        return z
+    
 class Matrix_Multiplication():
     def __init__(self):
         pass
-   
+    def read_matrix(filename):
+        with open(filename,'r') as f:
+            matrix=[]
+            for line in f:
+                row=[float(num) for num in line.strip().split()]
+                matrix.append(row)
+        return matrix
     
     def mat_mult(A,B):
         result = [[0 for _ in range(len(B[0]))] for _ in range(len(A))]
@@ -46,6 +60,16 @@ class Complex:
         arg= np.arctan(c1.i/ c1.r)#It is in radians
         arg = arg *(180/3.1415)
         return arg
+class RNG:
+    def __init__(self):
+        pass
+    def lcg(a=1103515245,c=12345,m=32768):
+        list=[]
+        z=0.1
+        for _ in range (1000):
+            z = (a*z +c) % m
+            list.append(z)
+        return list
 
 
 def read_matrix(filename):
@@ -63,8 +87,3 @@ def read_matrix(filename):
 
 
    
-Complex.display(f)
-m= Complex.mod(z)
-print(m)
-print (Complex.arg_deg(z))
-
