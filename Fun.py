@@ -1,12 +1,6 @@
 import numpy as np
 
-class Rng():
-    def rand_numb_gen():
-        x= id(0)
-        x= id(x)
-        z= str(x)[5:10]
-        return z
-    
+
 class Matrix_Multiplication():
     def __init__(self):
         pass
@@ -79,6 +73,7 @@ def read_matrix(filename):
                 row=[float(num) for num in line.strip().split()]
                 matrix.append(row)
         return matrix
+
 
 
 
