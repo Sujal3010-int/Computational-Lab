@@ -2,13 +2,7 @@ import numpy as np
 class Matrix_Multiplication():
     def __init__(self):
         pass
-    def read_matrix(filename):
-        with open(filename,'r') as f:
-            matrix=[]
-            for line in f:
-                row=[float(num) for num in line.strip().split()]
-                matrix.append(row)
-        return matrix
+   
     
     def mat_mult(A,B):
         result = [[0 for _ in range(len(B[0]))] for _ in range(len(A))]
@@ -73,3 +67,4 @@ Complex.display(f)
 m= Complex.mod(z)
 print(m)
 print (Complex.arg_deg(z))
+
