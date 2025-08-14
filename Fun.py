@@ -67,14 +67,14 @@ class RNG:
         z = (a*z +c) % m
         return z/(m - 1)
     
-class LCGrandom():
+class Lcg_random():
     def _init_(self):
         self.a = 1103515245
         self.m= 32768
         self.c = 12345
         self.x= 1
 
-    def generate(self):
+    def gen(self):
         self.x=((1103515245 * self.x + 12345)) % 32768
         return self.x/(32768 - 1)
 
@@ -85,6 +85,7 @@ def read_matrix(filename):
                 row=[float(num) for num in line.strip().split()]
                 matrix.append(row)
         return matrix
+
 
 
 
