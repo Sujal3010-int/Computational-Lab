@@ -40,3 +40,4 @@ avg = sum_val / len(lstpi)
 print("The average pi value is:", avg)
 print("First 10 estimates:", lstpi[:10])
 Plot(lsti,lstpi)
+
