@@ -1,0 +1,17 @@
+#Sujal Sinha, 2311191
+#2y+5z=1
+#3x-y+2z =-2
+#x-y+3z=3
+from Fun import*
+a= read_matrix('asgn0_matA')
+print(a)
+b= read_matrix('asgn0_vecD')
+print(b)
+aug=[]
+n=len(a)
+for i in range(n):
+        aug.append(a[i] + b[i])   
+        print(aug)
+solution= gauss_jordan(aug)
+print('Solution of the given matrix is ',solution)
+#Solution of the given matrix is  [-2.0, -2.0, 1.0]
