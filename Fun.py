@@ -85,8 +85,41 @@ def read_matrix(filename):
                 row=[float(num) for num in line.strip().split()]
                 matrix.append(row)
         return matrix
+def gauss_jordan(matrix):
+    n = len(matrix)   # number of rows
 
+    for i in range(n):
+        # Find the row with the largest value in the column
+        max = i
+        for k in range(i+1, n):
+            val_k = matrix[k][i] if matrix[k][i] >= 0 else -matrix[k][i]
+            val_max = matrix[max][i] if matrix[max][i] >= 0 else -matrix[max][i]
+            if val_k > val_max:
+                max = k
 
+        # Swap the current row with the row having the largest pivot
+        if i != max:
+            matrix[i], matrix[max] = matrix[max], matrix[i]
+
+        # Make the pivot element equal to 1
+        pivot = matrix[i][i]
+        if pivot == 0:
+            print("Matrix is singular and cannot be solved")
+        for j in range(i, n+1):  # The diagonal element as 1
+            matrix[i][j] = matrix[i][j] / pivot
+
+        # Eliminate all other entries in the current column
+        for k in range(n):
+            if k != i:
+                factor = matrix[k][i]
+                for j in range(i, n+1):
+                    matrix[k][j] = matrix[k][j] - factor * matrix[i][j]
+
+    # The solution will be in the last column
+    solution = []
+    for i in range(n):
+        solution.append(matrix[i][n])
+    return solution
 
 
 
