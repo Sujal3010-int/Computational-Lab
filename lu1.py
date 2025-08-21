@@ -1,0 +1,46 @@
+from Fun import *
+
+a = read_matrix('asgn0_matB')
+B = read_matrix('asgn0_vecC')
+
+A = LUdecomp(a)   # A is the LU matrix in Doolittle form
+n = len(A)
+
+# Extract L and U from A
+L = [[0.0] * n for _ in range(n)]
+U = [[0.0] * n for _ in range(n)]
+
+for i in range(n):
+    for j in range(n):
+        if i > j:              
+            L[i][j] = A[i][j]
+            U[i][j] = 0
+        elif i == j:           
+            L[i][i] = 1.0
+            U[i][i] = A[i][i]
+        else:                  
+            U[i][j] = A[i][j]
+            L[i][j] = 0
+
+# Forward substitution 
+y = [0.0] * n
+for i in range(n):
+    s = 0
+    for j in range(i):
+        s += L[i][j] * y[j]
+    y[i] = B[i][0] - s
+
+# Backward substitution 
+x = [0.0] * n
+for i in range(n-1, -1, -1):
+    s = 0
+    for j in range(i+1, n):
+        s += U[i][j] * x[j]
+    x[i] = (y[i] - s) / U[i][i]
+
+print("Solution of the equation:", x)
+"""
+Output:
+Solution of the equation: [4787.51370122387, -25911.361980681682, -7710.075192086069, 1371.505927226829, 115.50516574282423, -7.842805005213755]
+
+"""

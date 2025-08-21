@@ -121,6 +121,61 @@ def gauss_jordan(matrix):
         solution.append(matrix[i][n])
     return solution
 
+def LUdecomp(A):#For a output in the same matrix
+    n= len(A)
+    L = [[0.0] * n for _ in range(n)]
+    U = [[0.0] * n for _ in range(n)]
+    for i in range(n):
+        
+        for k in range(i, n):
+            s_val = 0
+            for j in range(i):
+                s_val += L[i][j] * U[j][k]
+            U[i][k] = A[i][k] - s_val
+
+        
+        for k in range(i, n):
+            if i == k:
+                L[i][i] = 1.0  # Diagonal elements of L are 1 as per doolittle method
+            else:
+                s_val = 0
+                for j in range(i):
+                    s_val += L[k][j] * U[j][i]
+                L[k][i] = (A[k][i] - s_val) / U[i][i]
+    for i in range(0,n,1):
+        for j in range(0,n,1):
+            if i<j:
+                A[i][j]=U[i][j]
+            elif i>j:
+                A[i][j]=L[i][j]
+            else:
+                A[i][j]=1
+    return A
+def Upper_Lower_Matrix(A):
+    n= len(A)
+    L = [[0.0] * n for _ in range(n)]
+    U = [[0.0] * n for _ in range(n)]
+
+
+    for i in range(n):
+        
+        for k in range(i, n):
+            s_val = 0
+            for j in range(i):
+                s_val += L[i][j] * U[j][k]
+            U[i][k] = int(A[i][k] - s_val)
+
+        
+        for k in range(i, n):
+            if i == k:
+                L[i][i] = 1.0  # Diagonal elements of L are 1 as per doolittle method
+            else:
+                s_val = 0
+                for j in range(i):
+                    s_val += L[k][j] * U[j][i]
+                L[k][i] = int((A[k][i] - s_val) / U[i][i])
+    return U,L
+
 
 
 
