@@ -1,4 +1,5 @@
 import numpy as np
+import math 
 class Matrix_Multiplication():
     def __init__(self):
         pass
@@ -146,10 +147,9 @@ def LUdecomp(A):#For a output in the same matrix
         for j in range(0,n,1):
             if i<j:
                 A[i][j]=U[i][j]
-            elif i>j:
-                A[i][j]=L[i][j]
             else:
-                A[i][j]=1
+                A[i][j]=L[i][j]
+
     return A
 def Upper_Lower_Matrix(A):
     n= len(A)
@@ -175,6 +175,79 @@ def Upper_Lower_Matrix(A):
                     s_val += L[k][j] * U[j][i]
                 L[k][i] = int((A[k][i] - s_val) / U[i][i])
     return U,L
+
+def jacobi(A, B, itr):
+    n = len(A)
+    x=[0.0 for _ in range(itr) ]
+    for _ in range(itr):
+        xnew=[0]*n
+        for i in range(n):
+            sum = 0
+            for j in range(n):
+                if i!= j:
+                   sum = sum +  A[i][j]*x[j]
+            xnew[i] = (B[i][0] - sum)/A[i][i]
+        x= xnew
+    return x
+
+def cholesky_decomposition(A):
+    n = len(A)
+    L = [[0.0 for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(i + 1):  # only lower triangular part
+            s = 0.0
+            for k in range(j):
+                s += L[i][k] * L[j][k]
+
+            if i == j:  
+                val = A[i][i] - s
+                if val <= 0:
+                    print("Matrix is not positive definite")
+                    break
+                L[i][j] = val ** 0.5
+            else:  
+                L[i][j] = (A[i][j] - s) / L[j][j]
+
+    return L
+def fwd_bck_sub(b,c,c_t):
+    n=len(c)
+    y = [0.0] * n
+    for i in range(n):
+        s = 0
+        for j in range(i):
+            s += c[i][j] * y[j]
+        y[i] = b[i][0] - s
+    # Backward substitution 
+    x = [0.0] * n
+    for i in range(n-1, -1, -1):
+        s = 0
+        for j in range(i+1, n):
+            s += c_t[i][j] * x[j]
+        x[i] = (y[i] - s) / c_t[i][i]
+    return x
+
+def gauss_seidel_nodiag(A,B):
+    n = len(A)
+    x = [0.0] * n
+    for itr in range(100):
+        y = x.copy()
+        for i in range(n):
+            s = 0
+            for j in range(i):
+                s +=  A[i][j] * y[j]
+            a = 0
+            for j in range(i + 1, n):
+                a += A[i][j] * x[j]
+            y[i] = (B[i][0] - s - a) / A[i][i]
+
+        e = 0
+        for i in range(n):
+            if abs(y[i] - x[i]) > e:
+                e = abs(y[i] - x[i])
+        if e < 10e-6:
+            return y
+        x = y
 
 
 
